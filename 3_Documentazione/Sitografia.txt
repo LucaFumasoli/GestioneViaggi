@@ -1,4 +1,14 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f8d128f7c4faa7971306998551fea81cb4317ffd
 LINK           -          TITOLO         -        DATA
 https://getbootstrap.com/docs			17.02.2022
 https://developer.mozilla.org/			--
 https://stackoverflow.com/questions/585945/how-to-align-content-of-a-div-to-the-bottom --
+<<<<<<< HEAD
+=======
+=======
+LINK           -          TITOLO         -        DATA
+>>>>>>> 50cd4fa242dd4019f51eb23ee5fd793e2851fdb4
+>>>>>>> f8d128f7c4faa7971306998551fea81cb4317ffd
