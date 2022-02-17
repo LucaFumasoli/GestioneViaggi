@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXIST bus(
+
+CREATE TABLE IF NOT EXISTS bus(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	posti_totali INT,
 	numero_bus INT
@@ -9,7 +10,7 @@ CREATE TABLE IF NOT EXISTS utente (
 	nome VARCHAR(25) NOT NULL,
 	cognome VARCHAR(25) NOT NULL,
 	password VARCHAR(25) NOT NULL,
-	e-mail VARCHAR(50) NOT NULL
+	email VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS posto (
@@ -25,22 +26,22 @@ CREATE TABLE IF NOT EXISTS posto (
 	ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXIST viaggio(
+CREATE TABLE IF NOT EXISTS viaggio(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	id_bus INT,	
 	orario_partenza DATE,
 	orario_arrivo DATE,
-	località_partenza VARCHAR(50),
-	località arrivo VARCHAR(50),
+	localita_partenza VARCHAR(50),
+	localita_arrivo VARCHAR(50),
 	FOREIGN KEY(id_bus) REFERENCES bus(id)
 	ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXIST tappa(
+CREATE TABLE IF NOT EXISTS tappa(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	id_viaggio INT,	
-	località_partenza VARCHAR(50),
-	località arrivo VARCHAR(50),
+	localita_partenza VARCHAR(50),
+	localita_arrivo VARCHAR(50),
 	orario_partenza DATE,
 	orario_arrivo DATE,
 	costo FLOAT,
@@ -62,36 +63,47 @@ CREATE TABLE IF NOT EXISTS biglietto (
 	ON DELETE CASCADE
 );
 
-INSERT INTO utente (nome, cognome, password, e-mail) VALUES('Marco', 'Rossi', 'pass', 'Marco.Rosi@gmail.com');
-INSERT INTO utente (nome, cognome, password, e-mail) VALUES('Giacomo', 'Verdi', 'pass', 'Giacomo.Verdi@gmail.com');
-INSERT INTO utente (nome, cognome, password, e-mail) VALUES('Lorenzo', 'Bianchi', 'pass', 'Lorenzo.Bianchi@gmail.com');
-
-INSERT INTO biglietto(id_viaggio, id_utente, costo_totale) VALUES(1, 0, 50);
-INSERT INTO biglietto(id_viaggio, id_utente, costo_totale) VALUES(2, 1, 20);
-INSERT INTO biglietto(id_viaggio, id_utente, costo_totale) VALUES(0, 2, 25);
-
-INSERT INTO posto(id_bus, id_utente, numero_posto) VALUES(2, 1, 5);
-INSERT INTO posto(id_bus, id_utente, numero_posto) VALUES(0, 1, 7);
-INSERT INTO posto(id_bus, id_utente, numero_posto) VALUES(1, 0, 30);
-
-INSERT INTO bus(posti_totali, numero) VALUES(20, 1);
+INSERT INTO utente (nome, cognome, password, email) VALUES('Marco', 'Rossi', 'pass', 'Marco.Rosi@gmail.com');
+INSERT INTO utente (nome, cognome, password, email) VALUES('Giacomo', 'Verdi', 'pass', 'Giacomo.Verdi@gmail.com');
+INSERT INTO utente (nome, cognome, password, email) VALUES('Lorenzo', 'Bianchi', 'pass', 'Lorenzo.Bianchi@gmail.com');
 
 
-INSERT INTO viaggio(id_bus, località_partenza, località_arrivo, orario_arrivo, orario_partenza, costo, numero,tappa) VALUES(0, 08:00:00, 08:10:00, "Lugano", "Taverne");
 
-INSERT INTO tappa(id_viaggio, località_partenza, località_arrivo, orario_arrivo, orario_partenza) VALUES(0, 08:00:00, 08:05:00, "Lugano", "Lamone");
-INSERT INTO tappa(id_viaggio, località_partenza, località_arrivo, orario_arrivo, orario_partenza) VALUES(0, 08:05:00, 08:10:00, "Lamone", "Taverne");
 
-INSERT INTO bus(posti_totali, numero) VALUES(40, 2);
 
-INSERT INTO viaggio(id_bus, località_partenza, località_arrivo, orario_arrivo, orario_partenza, costo, numero,tappa) VALUES(1, 12:00:00, 12:30:00, "Mendrisio", "Lugano");
+INSERT INTO bus(posti_totali, numero_bus) VALUES(20, 1);
 
-INSERT INTO tappa(id_viaggio, località_partenza, località_arrivo, orario_arrivo, orario_partenza) VALUES(1, 12:00:00, 12:15:00, "Mendrisio", "Melide");
-INSERT INTO tappa(id_viaggio, località_partenza, località_arrivo, orario_arrivo, orario_partenza) VALUES(1, 12:15:00, 12:30:00, "Melide", "Lugano");
 
-INSERT INTO bus(posti_totali, numero) VALUES(60, 3);
 
-INSERT INTO viaggio(id_bus, località_partenza, località_arrivo, orario_arrivo, orario_partenza, costo, numero,tappa) VALUES(2, 15:00:00, 15:35:00, "Chiasso", "Lamone");
+INSERT INTO viaggio(id_bus, localita_partenza, localita_arrivo, orario_partenza, orario_arrivo) VALUES(1, "Lugano", "Taverne", "08:00:00" , "08:10:00");
 
-INSERT INTO tappa(id_viaggio, località_partenza, località_arrivo, orario_arrivo, orario_partenza) VALUES(2, 15:00:00, 15:30:00, "Chiasso", "Lugano");
-INSERT INTO tappa(id_viaggio, località_partenza, località_arrivo, orario_arrivo, orario_partenza) VALUES(2, 15:30:00, 15:35:00, "Lugano", "Lamone");
+INSERT INTO tappa(id_viaggio, localita_partenza, localita_arrivo, orario_arrivo, orario_partenza, costo, numero_tappa) VALUES(1, "08:00:00", "08:05:00", "Lugano", "Lamone", 2.00 ,1);
+INSERT INTO tappa(id_viaggio, localita_partenza, localita_arrivo, orario_arrivo, orario_partenza, costo, numero_tappa) VALUES(1, "08:05:00", "08:10:00", "Lamone", "Taverne", 2.00 ,2 );
+
+INSERT INTO bus(posti_totali, numero_bus) VALUES(40, 2);
+
+INSERT INTO viaggio(id_bus, localita_partenza, localita_arrivo, orario_partenza, orario_arrivo) VALUES(2, "Mendrisio", "Lugano", "12:00:00", "12:30:00");
+
+INSERT INTO tappa(id_viaggio, localita_partenza, localita_arrivo, orario_arrivo, orario_partenza, costo, numero_tappa) VALUES(2, "12:00:00", "12:15:00", "Mendrisio", "Melide", 2.00 ,1 );
+INSERT INTO tappa(id_viaggio, localita_partenza, localita_arrivo, orario_arrivo, orario_partenza, costo, numero_tappa) VALUES(2, "12:15:00", "12:30:00", "Melide", "Lugano", 2.00 ,2 );
+
+
+INSERT INTO bus(posti_totali, numero_bus) VALUES(60, 3);
+
+
+
+INSERT INTO viaggio(id_bus, localita_partenza, localita_arrivo, orario_partenza, orario_arrivo) VALUES(3, "Chiasso", "Lamone", "15:00:00", "15:35:00");
+
+
+INSERT INTO tappa(id_viaggio, localita_partenza, localita_arrivo, orario_arrivo, orario_partenza, costo, numero_tappa) VALUES(3, "15:00:00", "15:30:00", "Chiasso", "Lugano", 2.00 ,1 );
+INSERT INTO tappa(id_viaggio, localita_partenza, localita_arrivo, orario_arrivo, orario_partenza, costo, numero_tappa) VALUES(3, "15:30:00", "15:35:00", "Lugano", "Lamone", 2.00 ,2 );
+
+INSERT INTO posto(id_bus, id_utente, numero_posto) VALUES(3, 3, 5);
+INSERT INTO posto(id_bus, id_utente, numero_posto) VALUES(1, 2, 7);
+INSERT INTO posto(id_bus, id_utente, numero_posto) VALUES(2, 1, 30);
+
+INSERT INTO biglietto(id_viaggio, id_utente, costo_totale) VALUES(2, 1, 50);
+INSERT INTO biglietto(id_viaggio, id_utente, costo_totale) VALUES(3, 2, 20);
+INSERT INTO biglietto(id_viaggio, id_utente, costo_totale) VALUES(1, 3, 25);
+
+
