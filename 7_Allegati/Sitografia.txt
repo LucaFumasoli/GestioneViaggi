@@ -12,3 +12,8 @@ https://stackoverflow.com/questions/585945/how-to-align-content-of-a-div-to-the-
 LINK           -          TITOLO         -        DATA
 >>>>>>> 50cd4fa242dd4019f51eb23ee5fd793e2851fdb4
 >>>>>>> f8d128f7c4faa7971306998551fea81cb4317ffd
+
+
+24.02.22
+https://www.php.net/manual/en/function.substr.php
+https://www.html.it/pag/54075/gestire-date-e-orari/

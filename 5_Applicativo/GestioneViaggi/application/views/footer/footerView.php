@@ -1,3 +1,7 @@
+		<br>
+	<br>
+	<br>
+	<br>
 		<div class="fixed-bottom">
 			<div class="row" style="background-color: #3f51b5">
 				<div class="col">

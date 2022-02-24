@@ -1,4 +1,5 @@
-
+<?php if (session_status() === PHP_SESSION_NONE) { session_start(); } ?>
+<form action="<?php echo URL . 'home/tryToLogin' ?>" method="POST">
 <div class="row">
 		<div class="col-3"></div>
 		<div class="col">
@@ -12,8 +13,14 @@
 		<div class="col-3"></div>
 		<div class="col">
 			<div class="form-floating">
-	      <input type="email" class="form-control" id="floatingInput"  placeholder="email">
-	      <label for="floatingInput">Indirizzo email</label>
+			<?php if(!isset($_SESSION['emailLogin'])){ ?>
+	      		<input type="email" class="form-control" id="floatingInput" name="floatingEmail" placeholder="email">
+	      		<label for="floatingEmail">Indirizzo email</label>
+	      	<?php } ?>
+	      	<?php if(isset($_SESSION['emailLogin'])){ ?>
+	      		<input type="email" class="form-control" id="floatingInput" name="floatingEmail" placeholder="email" value="<?php echo $_SESSION['emailLogin'] ?>"style="border: 2px solid red">
+	      		<label for="floatingEmail">Indirizzo email</label>
+	      	<?php } unset($_SESSION['emailLogin'])?>
 	    </div>
 		</div>
 		<div class="col-3"></div>
@@ -23,8 +30,15 @@
 		<div class="col-3"></div>
 		<div class="col">
 			<div class="form-floating">
-	      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-	      <label for="floatingPassword">Password</label>
+			<?php if(!isset($_SESSION['passwordLogin'])){ ?>
+	      		<input type="password" class="form-control" id="floatingPassword" name="floatingPassword" placeholder="Password">
+	      		<label for="floatingPassword">Password</label>
+	       <?php } ?>
+	       <?php if(isset($_SESSION['passwordLogin'])){ ?>
+	      		<input type="password" class="form-control" id="floatingPassword" name="floatingPassword" placeholder="Password" value="<?php echo $_SESSION['passwordLogin'] ?>"style="border: 2px solid red">
+	      		<label for="floatingPassword">Password</label>
+
+	       <?php } unset($_SESSION['passwordLogin'])?>
 	    </div>
 		</div>
 		<div class="col-3"></div>
@@ -50,7 +64,8 @@
 	<div class="row">
 		<div class="col-4"></div>
 		<div class="col">
-			<a href="<?php echo URL . 'home/register' ?>"><input type="submit" value="registrati" class="w-100 btn btn-lg btn-primary"></a>
+			<a href="<?php echo URL . 'home/register' ?>"><input type="button" value="registrati" class="w-100 btn btn-lg btn-primary"></a>
 		</div>
 		<div class="col-4"></div>
 	</div>
+</form>
