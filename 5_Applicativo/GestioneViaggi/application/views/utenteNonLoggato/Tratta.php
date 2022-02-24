@@ -106,6 +106,17 @@
         </div>
     </div>
     </form>
+        <div class="row">
+            <div class="col-4" ></div>
+            <div class="col">
+                <div class="form-floating">
+                    <span>luogo di arrivo</span>
+                    <input type="text" class="form-control" id="luogoArrivo" name="luogoArrivo" placeholder="Luogo di arrivo">
+                </div>
+            </div>
+            <div class="col-4" ></div>
+        </div>
+
     <br>
 </div>
 
