@@ -33,7 +33,13 @@
 <?php 
 
 	for ($i=0; $i < count($result); $i++) {?>
-		<a href="<?php echo URL . 'home/tratta/'?><?php echo ($result[$i]['id_viaggio'])?>" style="text-decoration: none;">
+		<a href="<?php 
+			if($_SESSION['isRegistered'] == false){
+				echo URL . 'home/tratta/';
+			}else{
+				echo URL . 'home/trattaLoggato/';
+			}
+		 	echo ($result[$i]['id_viaggio'])?>" style="text-decoration: none;">
 			<div class="row">
 				<div class="col-2">
 					<h5 style="color:white;"><?php echo substr($result[$i]["orario_partenza"],11)?></h5>

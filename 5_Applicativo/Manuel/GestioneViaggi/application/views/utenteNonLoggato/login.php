@@ -1,6 +1,11 @@
+<br>
+<br>
+<br>
+<br>
+<br>
 <?php if (session_status() === PHP_SESSION_NONE) { session_start(); } ?>
 <form action="<?php echo URL . 'home/tryToLogin' ?>" method="POST">
-<div class="row">
+	<div class="row">
 		<div class="col-3"></div>
 		<div class="col">
 			<h1 class="h3 mb-3 fw-normal" style="color: white;">Accedi</h1>

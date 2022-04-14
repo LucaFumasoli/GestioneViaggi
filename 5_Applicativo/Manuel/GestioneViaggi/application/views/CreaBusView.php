@@ -1,3 +1,8 @@
+<br>
+<br>
+<br>
+<br>
+<br>
 <?php 
 
 	if (session_status() === PHP_SESSION_NONE) { 

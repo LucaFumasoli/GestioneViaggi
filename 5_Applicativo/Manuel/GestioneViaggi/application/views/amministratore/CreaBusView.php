@@ -6,10 +6,12 @@
 
 	if (isset($_GET['grandezza'])) {
         $grand = $_GET['grandezza'];
-        $_SESSION['grand'] = $grand;
     }else {
         $grand = 1;
     }
+
+    $_SESSION['grand'] = $grand;
+
     if ($_SESSION['grand'] == 0) {
         $numRig = 5;
     } else if ($_SESSION['grand'] == 1) {
@@ -18,12 +20,20 @@
         $numRig = 15;
     }
 
+   	$_SESSION['nomeLinea'] = null;
+
     if (isset($_POST['nomeLinea'])) {
        	$_SESSION['colorRed'] = true;
+    }else {
+   		$_SESSION['colorRed'] = false;
     }
 
 ?>
-
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<div class="row">
 		<div class="col-2"></div>
 		<div class="col-1">
@@ -52,9 +62,9 @@
 		</div>
 		<div class="col-1">
 			<?php if($_SESSION['colorRed'] == false){ ?>
-	      		<input type="number" name="nomeLinea" id="nomeLinea" value="<?php echo $_SESSION['nomeLinea']; ?>">
+	      		<input type="number" name="nomeLinea" id="nomeLinea" value="<?php echo $_SESSION['nomeLinea']; ?>" />
 	      	<?php }else { ?>
-	      		<input type="number" name="nomeLinea" id="nomeLinea" style="border: 2px solid red">
+	      		<input type="number" name="nomeLinea" id="nomeLinea" style="border: 2px solid red" />
 	      	<?php } ?>
 		</div>
 		<div class="col"></div>
