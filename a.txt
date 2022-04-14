@@ -1,0 +1,14 @@
+require "application/libs/connection.php";
+			$sql = "Select id from utente where email = '$email'";
+			$id = $con->query($sql);
+			$id = $id->fetch_assoc();
+			$id = $id['id'];
+			$sql2 = "Select id,data FROM biglietto where id_utente = '$id'";
+			$numFatture = $con->query($sql2);
+			$arr = array();
+			if($numFatture->num_rows > 0){
+				while($row = $numFatture->fetch_assoc()){
+					$arr[] = $row;
+				}
+			}
+			return $arr;
