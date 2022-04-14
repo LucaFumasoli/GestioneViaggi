@@ -32,91 +32,57 @@
 
 <body style="background-color: #424242; color: white;">
 
-<div>
-    <form method="post">
-        <div class="row">
-            <div class="col-2">
-                <span>442 </span>
-            </div>
-            <div class="col-4">
-                <span>15 posti disponibili</span>
-            </div>
-            <br>
-            <br>
+<div style="color: white;">
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-2">
+            <h4>Numero Bus: <?php echo $numBus[0]['numero_bus'] ?></h4>
         </div>
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-2 text-center">
-                <span>Lugano</span><br>
-                <span class="time">15:50</span>
-            </div>
-            <div class="col"></div>
+        <div class="col-4">
+            <h4>Posti disponibili: <?php echo $postiDisponibili ?></h4>
         </div>
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-2 text-center">
-                <span class="arrow" style="font-size: 50px"> &#124;</span>
-            </div>
-            <div class="col">
-                <br>
-                <span>Lamone</span><br>
-                <span class="time">15:55</span>
-            </div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-2 text-center">
-                <span class="arrow" style="font-size: 50px"> &#124;</span>
-            </div>
-            <div class="col">
-                <div class="pull-left">
-                    <br>
-                    <span>Taverne-Torricella</span><br>
-                    <span class="time">15:58</span>
-                </div>
-            </div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-2 text-center">
-                <span class="arrow" style="font-size: 50px"> &#124;</span>
-            </div>
-            <div class="col">
-                <br>
-                <span>Mezzovico</span><br>
-                <span class="time">16:02</span>
-            </div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-2 text-center">
-                <span class="arrow" style="font-size: 50px">&darr;</span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-2 text-center">
-                <span>Rivera-Bironico</span><br>
-                <span class="time">16:05</span>
-            </div>
-            <div class="col"></div>
-        </div>
+        <br>
+        <br>
     </div>
-    </form>
-        <div class="row">
-            <div class="col-4" ></div>
-            <div class="col">
-                <div class="form-floating">
-                    <span>luogo di arrivo</span>
-                    <input type="text" class="form-control" id="luogoArrivo" name="luogoArrivo" placeholder="Luogo di arrivo">
-                </div>
-            </div>
-            <div class="col-4" ></div>
+  
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-2 text-center">
+            <h3><?php echo $result[0]['localita_partenza'] ?></h3><br>
+            <h4><?php echo substr($result[0]['orario_partenza'], 11) ?></h4>
         </div>
+        <div class="col"></div>
+    </div>
 
+    <?php 
+        for ($i=1; $i < count($result); $i++) { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-2 text-center">
+                    <span class="arrow" style="font-size: 100px"> &#124;</span>
+                </div>
+                <div class="col-2">
+                    <br>
+                    <h3> <?php echo $result[$i]['localita_partenza']?></h3><br>
+                    <h4><?php echo substr($result[$i]['orario_partenza'],11) ?></h4>
+                </div>
+                <div class="col"></div>
+            </div>
+       <?php }
+    ?>
+
+  
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-2 text-center">
+            <span class="arrow" style="font-size: 100px">&darr;</span>
+            <h2><?php echo $result[count($result)-1]['localita_arrivo']?></h2><br>
+            <h3 ><?php echo substr($result[count($result)-1]['orario_arrivo'], 11)?></h3>
+        </div>
+        <div class="col"></div>
+    </div>
     <br>
 </div>
 
