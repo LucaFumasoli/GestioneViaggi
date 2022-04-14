@@ -50,8 +50,10 @@
     <div class="row">
         <div class="col-1"></div>
         <div class="col-2 text-center">
-            <h3><?php echo $result[0]['localita_partenza'] ?></h3><br>
-            <h4><?php echo substr($result[0]['orario_partenza'], 11) ?></h4>
+            <a href="<?php echo URL . 'home/infoTappa/'?><?php echo $result[0]['id_tappa']?>">
+                <h3><?php echo $result[0]['localita_partenza'] ?></h3><br>
+                <h4><?php echo substr($result[0]['orario_partenza'], 11) ?></h4>
+            </a>
         </div>
         <div class="col"></div>
     </div>
@@ -65,8 +67,10 @@
                 </div>
                 <div class="col-2">
                     <br>
-                    <h3> <?php echo $result[$i]['localita_partenza']?></h3><br>
-                    <h4><?php echo substr($result[$i]['orario_partenza'],11) ?></h4>
+                    <a href="<?php echo URL . 'home/infoTappa/'?><?php echo $result[0]['id_tappa']?>">
+                        <h3> <?php echo $result[$i]['localita_partenza']?></h3><br>
+                        <h4><?php echo substr($result[$i]['orario_partenza'],11) ?></h4>
+                    </a>
                 </div>
                 <div class="col"></div>
             </div>
@@ -78,8 +82,10 @@
         <div class="col-1"></div>
         <div class="col-2 text-center">
             <span class="arrow" style="font-size: 100px">&darr;</span>
-            <h2><?php echo $result[count($result)-1]['localita_arrivo']?></h2><br>
-            <h3 ><?php echo substr($result[count($result)-1]['orario_arrivo'], 11)?></h3>
+            <a href="<?php echo URL . 'home/infoTappa/'?><?php echo $result[0]['id_tappa']?>">
+                <h2><?php echo $result[count($result)-1]['localita_arrivo']?></h2><br>
+                <h3 ><?php echo substr($result[count($result)-1]['orario_arrivo'], 11)?></h3>
+            </a>
         </div>
         <div class="col"></div>
     </div>

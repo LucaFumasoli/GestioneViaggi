@@ -1,9 +1,7 @@
 <?php
 
-
 class Home
 {
-
     public function index()
     {
         require_once "application/views/header/headerLoginRegisterView.php";
@@ -23,10 +21,9 @@ class Home
         require_once "application/views/footer/footerView.php";
     }
     public function loggedUser(){
-        
-            require_once "application/views/header/loggedUserHeader.php";
-            require_once "application/views/cercaViaggi/ricercaView.php";
-            require_once "application/views/footer/footerView.php";
+        require_once "application/views/header/loggedUserHeader.php";
+        require_once "application/views/cercaViaggi/ricercaView.php";
+        require_once "application/views/footer/footerView.php";
     }
     public function tryToLogin(){
         require_once "application/models/login.php";
@@ -105,20 +102,10 @@ class Home
         require_once "application/views/header/headerLoginRegisterView.php";
         require_once "application/views/cercaViaggi/ricercaView.php";
         require_once "application/models/ricercaViaggi.php";
-        session_start();
-        if (!isset($_SESSION['partenza']) || !isset($_SESSION['arrivo']) || !isset($_SESSION['data']) || !isset($_SESSION['orario']) ||isset($_POST['luogoPartenza']) && $_SESSION['partenza'] != $_POST['luogoPartenza'] || isset($_POST['luogoArrivo']) && $_SESSION['arrivo'] != $_POST['luogoArrivo'] || isset($_POST['dataViaggio']) && $_SESSION['data'] != $_POST['dataViaggio'] ||  isset($_POST['orarioViaggio']) && $_SESSION['orario'] != $_POST['orarioViaggio'] ) {
-            $_SESSION['partenza'] = $_POST['luogoPartenza'];
-            $_SESSION['arrivo'] = $_POST['luogoArrivo'];
-            $_SESSION['data'] = $_POST['dataViaggio'];
-            $_SESSION['orario'] = $_POST['orarioViaggio'];
-        }
-        
-
-
-        $partenza = $_SESSION['partenza'];
-        $arrivo = $_SESSION['arrivo'];
-        $data = $_SESSION['data'];
-        $orario = $_SESSION['orario'];
+        $partenza = $_POST['luogoPartenza']; 
+        $arrivo = $_POST['luogoArrivo'];
+        $data = $_POST['dataViaggio'];
+        $orario = $_POST['orarioViaggio'];
         if($data == "" && $orario == ""){
             $data = date("Y-m-d");
             $orario = date("H:i:s");
@@ -133,8 +120,7 @@ class Home
         require_once "application/views/utenteNonLoggato/viaggiView.php";
         require_once "application/views/footer/footerView.php";
     }
-
-     public function createBus()
+    public function createBus()
     {
         require_once "application/views/header/backHeaderView.php";
         require_once "application/views/amministratore/CreaBusView.php";
@@ -150,7 +136,7 @@ class Home
             $bus->insertBus();
             echo 'Nuovo bus creato';
         }else {
-            $_SESSION['colorRed'] = false;
+            $_SESSION['colorRed'] = true;
             $this->createBus();
         }
     }
@@ -160,22 +146,59 @@ class Home
         require_once "application/views/amministratore/CreaViaggioView.php";
         require_once "application/views/footer/footerView.php";
     }
-
-    public function tratta($idViaggio){
-        require_once "application/views/header/backRicercaHeader.php";
+    public function tryToCreateViaggi()
+    {
+        require_once "application/views/header/backHeaderView.php";
+        require_once "application/views/amministratore/CreaViaggioView.php";
+        require_once "application/views/footer/footerView.php";
+    }
+    public function mostraTratta()
+    {
+        require_once "application/views/header/backHeaderView.php";
         require_once "application/models/visualizzaTratta.php";
-        $visualizzaTratta = new VisualizzaTratta($idViaggio);
+        //$visualizzaTratta = new VisualizzaTratta($idViaggio);
+        $visualizzaTratta = new VisualizzaTratta(1);
+        //print_r($visualizzaTratta->idViaggio);
         $result = $visualizzaTratta->visualizzaDettgliTratta();
-        $numBus = $visualizzaTratta->getNumBus();
-
-        //prendere posti totali
-        $postiTot = $visualizzaTratta->postiTotali();
-        //prendere posti occupati
-        $postiOccupati = $visualizzaTratta->postiOccupati();
-        //sottrarre
-        $postiDisponibili = $postiTot[0]['posti_totali'] - $postiOccupati[0]['posti_occupati'];
         require_once "application/views/utenteNonLoggato/Tratta.php";
         require_once "application/views/footer/footerView.php";
     }
+    public function allUsers(){
+        require_once "application/models/gestioneUtentiModel.php";
+        $user = new Users();
+        $arrUsers = $user->getUsers();
+        require_once "application/views/header/backHeaderView.php";
+        require_once "application/views/amministratore/gestioneUtentiView.php";
+        require_once "application/views/footer/footerView.php";
+    }
+    public function users(){
+        require_once "application/models/gestioneUtentiModel.php";
+        $filterName = $_POST['floatingName'];
+        $filterSurname = $_POST['floatingSurname'];
+        $user = new Users();
+        $allUser = $user->getUsers();
+        $arrUsers = $user->filtra($filterName,$filterSurname,$allUser);
+        require_once "application/views/header/backHeaderView.php";
+        require_once "application/views/amministratore/gestioneUtentiView.php";
+        require_once "application/views/footer/footerView.php";
+    }
+    public function buyTicket(){
+        require_once "application/models/Bus.php";
+        $bus = new Bus(1, 1);
+        $numPosti = 20;
+        $busses = $bus->getBusses();
+        require_once "application/views/header/backHeaderView.php";
+        require_once "application/views/RiservaBiglietto.php";
+        require_once "application/views/footer/footerView.php";
+    }
+    public function tryToBuyTicket(){
+        session_start();
+        $ticket = new Ticket($viaggio, $utente, $costo);
+        if($ticket->checkEmptySeat()){
+            $_SESSION['numPosti'] = $numPosti;
+            $this->buyTicket();
+        }else {
 
+        }
+    }
 }

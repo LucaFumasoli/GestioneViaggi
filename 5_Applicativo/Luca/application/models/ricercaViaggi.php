@@ -33,7 +33,9 @@
 						t3.id AS id_arrivo,
 						t2.id_viaggio,
 						t2.orario_partenza,
-						t3.orario_arrivo
+						t3.orario_arrivo,
+						t2.numero_tappa AS numero_tappa_partenza,
+						t3.numero_tappa AS numero_tappa_arrivo
 				    FROM
 				        tappa t2, tappa t3, (
 							SELECT 

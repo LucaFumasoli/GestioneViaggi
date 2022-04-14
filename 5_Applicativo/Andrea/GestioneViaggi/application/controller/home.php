@@ -131,20 +131,30 @@ class Home
     public function viaggi()
     {
         session_start();
-        
-        if($_SESSION['isRegistered'] == true && $_SESSION['isAdmin'] == true ){
+        if ($_SESSION['isRegistered'] == false) {
+           require_once "application/views/header/headerLoginRegisterView.php";
+        }else if ($_SESSION['isAdmin'] == true){
             require_once "application/views/header/backAdminHeader.php";
-        }else if($_SESSION['isRegistered'] == true){
-            require_once "application/views/header/loggedUserHeader.php";
         }else{
-            require_once "application/views/header/headerLoginRegisterView.php";
+            require_once "application/views/header/loggedUserHeader.php";
         }
+        
         require_once "application/views/cercaViaggi/ricercaView.php";
         require_once "application/models/ricercaViaggi.php";
-        $partenza = $_POST['luogoPartenza']; 
-        $arrivo = $_POST['luogoArrivo']; 
-        $data = $_POST['dataViaggio']; 
-        $orario = $_POST['orarioViaggio'];
+        
+        if (!isset($_SESSION['partenza']) || !isset($_SESSION['arrivo']) || !isset($_SESSION['data']) || !isset($_SESSION['orario']) ||isset($_POST['luogoPartenza']) && $_SESSION['partenza'] != $_POST['luogoPartenza'] || isset($_POST['luogoArrivo']) && $_SESSION['arrivo'] != $_POST['luogoArrivo'] || isset($_POST['dataViaggio']) && $_SESSION['data'] != $_POST['dataViaggio'] ||  isset($_POST['orarioViaggio']) && $_SESSION['orario'] != $_POST['orarioViaggio'] ) {
+            $_SESSION['partenza'] = $_POST['luogoPartenza'];
+            $_SESSION['arrivo'] = $_POST['luogoArrivo'];
+            $_SESSION['data'] = $_POST['dataViaggio'];
+            $_SESSION['orario'] = $_POST['orarioViaggio'];
+        }
+        
+
+
+        $partenza = $_SESSION['partenza'];
+        $arrivo = $_SESSION['arrivo'];
+        $data = $_SESSION['data'];
+        $orario = $_SESSION['orario'];
         if($data == "" && $orario == ""){
             $data = date("Y-m-d");
             $orario = date("H:i:s");
@@ -159,6 +169,8 @@ class Home
         require_once "application/views/utenteNonLoggato/viaggiView.php";
         require_once "application/views/footer/footerView.php";
     }
+
+
 
      public function createBus()
     {
@@ -178,7 +190,7 @@ class Home
             $bus->insertBus();
             echo 'Nuovo bus creato';
         }else {
-            $_SESSION['colorRed'] = false;
+            $_SESSION['colorRed'] = true;
             $this->createBus();
         }
     }
@@ -214,20 +226,113 @@ class Home
             require_once "application/views/footer/footerView.php";
     }
     public function userInfo($id,$nome,$cognome,$email){
-        require_once "application/views/header/adminHeaderView.php";
+        require_once "application/models/UserInfoModel.php";
+        $u = new UserInfo();
+        $fatture = $u->getFactures($email);
+        require_once "application/views/header/backToAllUsersView.php";
         require_once "application/views/amministratore/UserInfoView.php";
         require_once "application/views/footer/footerView.php";
     }
-    public function userInfoChanged(){
-        
-        $nome = $_POST['floatingNome'];
-        $cognome = $_POST['floatingCognome'];
-        $email = $_POST['floatingEmail'];
+    public function userInfoChanged($nome,$cognome,$email){
         require_once "application/models/UserInfoModel.php";
         $u = new UserInfo();
-        $user = $u->changeUserInfo($nome,$cognome,$email);
-        require_once "application/views/header/adminHeaderView.php";
+        $nomeNuovo = $_POST['floatingNome'];
+        $cognomeNuovo = $_POST['floatingCognome'];
+        $emailNuovo = $_POST['floatingEmail'];
+        if(!empty($nomeNuovo)){
+            $nome = $nomeNuovo;
+        }
+        if(!empty($cognomeNuovo)){
+            $cognome = $cognomeNuovo;
+        }
+        $newEmail = $email;
+        if(!empty($emailNuovo) && $u->checkEmail($emailNuovo)){
+            $newEmail = $emailNuovo;
+        }
+        
+        $user = $u->changeUserInfo($nome,$cognome,$newEmail,$email);
+        $email = $newEmail;
+        $fatture = $u->getFactures($email);
+        require_once "application/views/header/backToAllUsersView.php";
+        
         require_once "application/views/amministratore/UserInfoView.php";
         require_once "application/views/footer/footerView.php";
+    }
+    public function fattura($id){
+        require_once "application/models/FatturaModel.php";
+        $f = new Fattura();
+        $fattura = $f->ticketInfo($id);
+        $idUser = $fattura[0]['id_utente'];
+        $utente = $f->userInfo($idUser);
+        $tappa = $f->stopInfo($id);
+        $idViaggio = $tappa[0]['id_viaggio'];
+        $bus = $f->bus($idViaggio);
+        require_once "application/views/header/adminHeaderView.php";
+
+        require_once "application/views/amministratore/FatturaView.php";
+        require_once "application/views/footer/footerView.php";
+    }
+    public function tratta($idViaggio){
+        require_once "application/views/header/backRicercaHeader.php";
+        require_once "application/models/visualizzaTratta.php";
+        $visualizzaTratta = new VisualizzaTratta($idViaggio);
+        $result = $visualizzaTratta->visualizzaDettgliTratta();
+        $numBus = $visualizzaTratta->getNumBus();
+
+        //prendere posti totali
+        $postiTot = $visualizzaTratta->postiTotali();
+        //prendere posti occupati
+        $postiOccupati = $visualizzaTratta->postiOccupati();
+        //sottrarre
+        $postiDisponibili = $postiTot[0]['posti_totali'] - $postiOccupati[0]['posti_occupati'];
+        require_once "application/views/utenteNonLoggato/Tratta.php";
+        require_once "application/views/footer/footerView.php";
+    }
+
+    public function trattaLoggato($idViaggio)
+    {
+        require_once "application/views/header/backRicercaHeader.php";
+        require_once "application/models/visualizzaTratta.php";
+        $visualizzaTratta = new VisualizzaTratta($idViaggio);
+        $result = $visualizzaTratta->visualizzaDettgliTratta();
+        $numBus = $visualizzaTratta->getNumBus();
+
+        //prendere posti totali
+        $postiTot = $visualizzaTratta->postiTotali();
+        //prendere posti occupati
+        $postiOccupati = $visualizzaTratta->postiOccupati();
+        //sottrarre
+        $postiDisponibili = $postiTot[0]['posti_totali'] - $postiOccupati[0]['posti_occupati'];
+        require_once "application/views/utenteLoggato/trattaLoggato.php";
+        require_once "application/views/footer/footerView.php";
+    }
+
+     public function buyTicket(){
+        require_once "application/models/Bus.php";
+        $bus = new Bus(1, 1);
+        $numPosti = 20;
+        $busses = $bus->getBusses();
+        require_once "application/views/header/backHeaderView.php";
+        require_once "application/views/utenteLoggato/riservaBiglietto.php";
+        require_once "application/views/footer/footerView.php";
+    }
+    public function trattaAdmin($idViaggio){
+        require_once "application/views/header/backAdminHeader.php";
+        require_once "application/models/visualizzaTratta.php";
+        $visualizzaTratta = new VisualizzaTratta($idViaggio);
+        $result = $visualizzaTratta->visualizzaDettgliTratta();
+        $numBus = $visualizzaTratta->getNumBus();
+
+        //prendere posti totali
+        $postiTot = $visualizzaTratta->postiTotali();
+        //prendere posti occupati
+        $postiOccupati = $visualizzaTratta->postiOccupati();
+        //sottrarre
+        $postiDisponibili = $postiTot[0]['posti_totali'] - $postiOccupati[0]['posti_occupati'];
+        require_once "application/views/amministratore/tratta.php";
+        require_once "application/views/footer/footerView.php";
+    }
+    public function infoTappa($idTappa){
+        echo $idTappa;
     }
 }

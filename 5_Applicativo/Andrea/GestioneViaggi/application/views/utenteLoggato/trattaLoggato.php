@@ -36,6 +36,7 @@
     <br>
     <br>
     <br>
+   
     <div class="row">
         <div class="col-2">
             <h4>Numero Bus: <?php echo $numBus[0]['numero_bus'] ?></h4>
@@ -84,6 +85,14 @@
         <div class="col"></div>
     </div>
     <br>
+	
+	<form action=" <?php echo URL . 'home/buyTicket' ?> " method="post">
+        <input type="hidden" value="<?php echo $result[0]['localita_partenza']?>" name="locPar" />
+        <input type="hidden" value="<?php echo $result[0]['orario_partenza']?>" name="oraPar" />
+        <input type="hidden" value="<?php echo $result[count($result)-1]['localita_arrivo']?>" name="locArr" />
+        <input type="hidden" value="<?php echo $result[count($result)-1]['orario_arrivo']?>" name="oraArr" />
+        <input type="submit" value="Acquista" class="w-25 btn btn-lg btn-primary" />
+    </form>
 </div>
 
 </body>

@@ -22,7 +22,7 @@
 	<div class="row" style="background-color: #3f51b5">
 		<div class="col-2">
 			
-			<a href="<?php echo URL . 'home/mainAdminView' ?>"><button class="w-100 btn btn-lg btn-primary" type="submit" style="margin-top: 20px; margin-bottom: 20px; margin-left: 20px;">Back</button></a>
+			<a href="<?php echo URL . 'home/users' ?>"><button class="w-100 btn btn-lg btn-primary" type="submit" style="margin-top: 20px; margin-bottom: 20px; margin-left: 20px;">Back</button></a>
 			
 		</div>
 		<div class="col">
@@ -34,9 +34,3 @@
 		</div>
 	</div>
 	</div>
-	<br>
-	<br>
-	<br>
-	<br>
-	
-	

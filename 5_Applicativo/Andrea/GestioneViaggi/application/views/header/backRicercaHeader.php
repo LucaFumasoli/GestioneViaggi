@@ -8,11 +8,9 @@
 	<!--<link href="login.css" rel="stylesheet">-->
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	
 	<style>
-		a{
-			color: white;
-			text-decoration: none;
-		}
+		
 	</style>
 	
 </head>
@@ -22,7 +20,7 @@
 	<div class="row" style="background-color: #3f51b5">
 		<div class="col-2">
 			
-			<a href="<?php echo URL . 'home/mainAdminView' ?>"><button class="w-100 btn btn-lg btn-primary" type="submit" style="margin-top: 20px; margin-bottom: 20px; margin-left: 20px;">Back</button></a>
+			<a href="<?php echo URL . 'home/viaggi' ?>"><button class="w-100 btn btn-lg btn-primary" type="submit" style="margin-top: 20px; margin-bottom: 20px; margin-left: 20px;">Back</button></a>
 			
 		</div>
 		<div class="col">
@@ -38,5 +36,3 @@
 	<br>
 	<br>
 	<br>
-	
-	

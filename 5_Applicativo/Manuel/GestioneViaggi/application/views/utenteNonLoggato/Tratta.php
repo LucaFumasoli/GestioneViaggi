@@ -33,12 +33,15 @@
 <body style="background-color: #424242; color: white;">
 
 <div style="color: white;">
+    <br>
+    <br>
+    <br>
     <div class="row">
         <div class="col-2">
-            <span>442 </span>
+            <h4>Numero Bus: <?php echo $numBus[0]['numero_bus'] ?></h4>
         </div>
         <div class="col-4">
-            <span>15 posti disponibili</span>
+            <h4>Posti disponibili: <?php echo $postiDisponibili ?></h4>
         </div>
         <br>
         <br>
@@ -47,8 +50,8 @@
     <div class="row">
         <div class="col-1"></div>
         <div class="col-2 text-center">
-            <h3><?php echo $result[0]['localita_partenza'] ?></h2><br>
-            <h4><?php echo substr($result[0]['orario_partenza'], 11) ?></h3>
+            <h3><?php echo $result[0]['localita_partenza'] ?></h3><br>
+            <h4><?php echo substr($result[0]['orario_partenza'], 11) ?></h4>
         </div>
         <div class="col"></div>
     </div>
@@ -62,8 +65,8 @@
                 </div>
                 <div class="col-2">
                     <br>
-                    <h3> <?php echo $result[$i]['localita_partenza']?></h2><br>
-                    <h4><?php echo substr($result[$i]['orario_partenza'],11) ?></h3>
+                    <h3> <?php echo $result[$i]['localita_partenza']?></h3><br>
+                    <h4><?php echo substr($result[$i]['orario_partenza'],11) ?></h4>
                 </div>
                 <div class="col"></div>
             </div>
