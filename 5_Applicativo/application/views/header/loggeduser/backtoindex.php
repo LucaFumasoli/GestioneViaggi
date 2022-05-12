@@ -8,11 +8,9 @@
 	<!--<link href="login.css" rel="stylesheet">-->
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	
 	<style>
-		a{
-			color: white;
-			text-decoration: none;
-		}
+		
 	</style>
 	
 </head>
@@ -20,9 +18,9 @@
 <body class="text-center" style="background-color: #424242;">
 	<div class="fixed-top">
 	<div class="row" style="background-color: #3f51b5">
-		<div class="col-2">
+		<div style="margin-top: 20px; margin-bottom: 20px;" class="col-2">
 			
-			<a href="<?php echo URL . 'home/users' ?>"><button class="w-100 btn btn-lg btn-primary" type="submit" style="margin-top: 20px; margin-bottom: 20px; margin-left: 20px;">Back</button></a>
+			<h3 style="color:white;"> <?php echo $_SESSION["userName"] . " " . $_SESSION["userSurname"] ?> </h3>
 			
 		</div>
 		<div class="col">
@@ -31,6 +29,9 @@
 			</div>
 		</div>
 		<div class="col-2">
+			
+			<a href="<?php echo URL . 'home/index' ?>"><button class="w-100 btn btn-lg btn-primary" type="submit" style="margin-top: 20px; margin-bottom: 20px;">Logout</button></a>
+			
 		</div>
 	</div>
 	</div>
@@ -39,3 +40,4 @@
 	<br>
 	<br>
 	<br>
+	
