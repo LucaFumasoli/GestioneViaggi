@@ -35,9 +35,11 @@ class Home
     }
     public function register()
     {
+        
         require_once "application/views/header/normaluser/backtoindex.php";
         require_once "application/views/utentenonloggato/register.php";
         require_once "application/views/footer/footerview.php";
+         $_SESSION['isAdmin'] = 0;
     }
     public function loggedUser(){
 		require_once "application/views/header/loggeduser/backtoindex.php";
@@ -503,7 +505,7 @@ class Home
         require_once "application/views/footer/footerview.php";
     }
     public function createAdmin(){
-        require_once "application/views/header/normaluser/backtoindex.php";
+        require_once "application/views/header/admin/backtomain.php";
         require_once "application/views/amministratore/registernewadmin.php";
         require_once "application/views/footer/footerview.php";
     }

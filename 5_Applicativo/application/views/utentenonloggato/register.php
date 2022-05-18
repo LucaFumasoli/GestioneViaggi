@@ -1,6 +1,6 @@
 
 <?php if (session_status() === PHP_SESSION_NONE) { session_start(); } ?>
-<form action="<?php echo URL . 'home/tryToCreateAdmin' ?>" method="POST">
+<form action="<?php echo URL . 'home/tryToRegister' ?>" method="POST">
 <div class="row">
 		<div class="col-3"></div>
 		<div class="col">
@@ -116,6 +116,23 @@
 		<div class="col-4"></div>
 		<div class="col">
 			<button class="w-100 btn btn-lg btn-primary" type="submit">Registrati</button>
+		</div>
+		<div class="col-4"></div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<div class="row">
+		<div class="col-3"></div>
+		<div class="col">
+			<label style="color: white;">hai già un account?</label>
+		</div>
+		<div class="col-3"></div>
+	</div>
+	<div class="row">
+		<div class="col-4"></div>
+		<div class="col">
+			<a href="<?php echo URL . 'home/login' ?>"><input type="button" class="w-100 btn btn-lg btn-primary" value="Accedi" ></a>
 		</div>
 		<div class="col-4"></div>
 	</div>
